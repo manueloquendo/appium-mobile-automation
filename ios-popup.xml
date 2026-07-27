@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><AppiumAUT><XCUIElementTypeApplication type="XCUIElementTypeApplication" name="Umami S" label="Umami S" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="" processId="7853" bundleId="com.umamifoodapp.staging">
+  <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+          <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit Toolbar" label="Cancel Food App Submit Toolbar" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+            <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit Toolbar" label="Cancel Food App Submit Toolbar" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+              <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit Toolbar" label="Cancel Food App Submit Toolbar" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit Toolbar" label="Cancel Food App Submit Toolbar" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                  <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit Toolbar" label="Cancel Food App Submit Toolbar" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                            <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                              <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                  <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                    <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="103" index="0" traits=""/>
+                                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="1" traits="">
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                            <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                              <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                                <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                                  <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                                    <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                                        <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                                          <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel Food App Submit" label="Cancel Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+                                                            <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel" label="Cancel" enabled="true" visible="true" accessible="false" x="65" y="59" width="263" height="56" index="0" traits="">
+                                                            <XCUIElementTypeOther type="XCUIElementTypeOther" name="Cancel" label="Cancel" enabled="true" visible="true" accessible="true" x="263" y="77" width="66" height="20" index="0" traits=""/>
+                                                            </XCUIElementTypeOther>
+                                                            <XCUIElementTypeOther type="XCUIElementTypeOther" name="Food App Submit" label="Food App Submit" enabled="true" visible="true" accessible="false" x="0" y="115" width="393" height="703" index="1" traits="">
+                                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Food App" name="Food App" label="Food App" enabled="true" visible="true" accessible="true" x="66" y="316" width="261" height="63" index="0" traits="StaticText"/>
+                                                            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="491" width="393" height="43" index="1" traits="">
+                                                            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="64" y="496" width="265" height="33" index="0" traits="">
+                                                            <XCUIElementTypeTextField type="XCUIElementTypeTextField" value="manuel@tapia.com" label="" enabled="true" visible="true" accessible="true" x="64" y="496" width="265" height="33" index="0" placeholderValue="Email Address" traits=""/>
+                                                            </XCUIElementTypeOther>
+                                                            </XCUIElementTypeOther>
+                                                            <XCUIElementTypeOther type="XCUIElementTypeOther" name="Submit" label="Submit" enabled="true" visible="true" accessible="true" x="65" y="559" width="263" height="40" index="2" traits=""/>
+                                                            </XCUIElementTypeOther>
+                                                          </XCUIElementTypeOther>
+                                                        </XCUIElementTypeOther>
+                                                      </XCUIElementTypeOther>
+                                                    </XCUIElementTypeOther>
+                                                  </XCUIElementTypeOther>
+                                                </XCUIElementTypeOther>
+                                              </XCUIElementTypeOther>
+                                            </XCUIElementTypeOther>
+                                          </XCUIElementTypeOther>
+                                        </XCUIElementTypeOther>
+                                      </XCUIElementTypeOther>
+                                    </XCUIElementTypeOther>
+                                  </XCUIElementTypeOther>
+                                </XCUIElementTypeOther>
+                              </XCUIElementTypeOther>
+                            </XCUIElementTypeOther>
+                          </XCUIElementTypeOther>
+                        </XCUIElementTypeOther>
+                      </XCUIElementTypeOther>
+                    </XCUIElementTypeOther>
+                  </XCUIElementTypeOther>
+                </XCUIElementTypeOther>
+              </XCUIElementTypeOther>
+            </XCUIElementTypeOther>
+          </XCUIElementTypeOther>
+        </XCUIElementTypeOther>
+      </XCUIElementTypeOther>
+    </XCUIElementTypeOther>
+  </XCUIElementTypeWindow>
+  <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="false" accessible="false" x="0" y="0" width="393" height="852" index="1" traits="">
+    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="393" height="852" index="0" traits="">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="393" height="852" index="0" traits=""/>
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="852" width="393" height="233" index="1" traits=""/>
+    </XCUIElementTypeOther>
+  </XCUIElementTypeWindow>
+</XCUIElementTypeApplication></AppiumAUT>

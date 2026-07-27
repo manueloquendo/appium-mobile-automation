@@ -1,0 +1,31 @@
+# Node.js
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Allure Reports
+allure-results/
+allure-report/
+
+# Screenshots
+screenshots/
+
+# BrowserStack
+browserstack.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Temporary files
+tmp/
+temp/
