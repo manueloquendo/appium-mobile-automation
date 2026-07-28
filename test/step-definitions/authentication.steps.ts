@@ -10,33 +10,23 @@ import {
 } from '@wdio/globals';
 
 import LoginPage from '../pageobjects/login.page.js';
+import { browserStackConfig } from '../../config/browserstack-config.js';
 
 /**
  * Test data used by the authentication scenarios.
- *
- * Later, these values can be moved to:
- * - environment variables
- * - JSON test data
- * - configuration files
  */
 const authenticationTestData = {
     validEmail:
-        process.env.VALID_EMAIL ??
-        process.env.TEST_USER_EMAIL ??
-        process.env.MOBILE_TEST_EMAIL ??
-        'ashutosh@tepia.co',
+        browserStackConfig.testUserEmail,
 
     validPassword:
-        process.env.VALID_PASSWORD ??
-        process.env.TEST_USER_PASSWORD ??
-        process.env.MOBILE_TEST_PASSWORD ??
-        '',
+        browserStackConfig.testUserPassword,
 
     invalidEmail:
-        'ashu',
+        browserStackConfig.invalidEmail,
 
     incorrectPassword:
-        'sgssh',
+        browserStackConfig.incorrectPassword,
 } as const;
 
 /**

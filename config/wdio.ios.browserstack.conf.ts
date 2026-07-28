@@ -47,45 +47,41 @@ const allureResultsDirectory = path.join(
     'allure-results'
 );
 
+import { browserStackConfig } from './browserstack-config.js';
+
 const browserStackUsername =
-    process.env.BROWSERSTACK_USERNAME;
+    browserStackConfig.username;
 
 const browserStackAccessKey =
-    process.env.BROWSERSTACK_ACCESS_KEY;
+    browserStackConfig.accessKey;
 
 const browserStackIosAppUrl =
-    process.env.BROWSERSTACK_IOS_APP_URL;
+    browserStackConfig.iosAppId;
 
 /**
- * Validates all mandatory environment variables
+ * Validates all mandatory BrowserStack values
  * before execution.
  */
-function validateEnvironmentVariables(): void {
-    const missingVariables: string[] = [];
+function validateBrowserStackConfiguration(): void {
+    const missingValues: string[] = [];
 
     if (!browserStackUsername) {
-        missingVariables.push(
-            'BROWSERSTACK_USERNAME'
-        );
+        missingValues.push('username');
     }
 
     if (!browserStackAccessKey) {
-        missingVariables.push(
-            'BROWSERSTACK_ACCESS_KEY'
-        );
+        missingValues.push('accessKey');
     }
 
     if (!browserStackIosAppUrl) {
-        missingVariables.push(
-            'BROWSERSTACK_IOS_APP_URL'
-        );
+        missingValues.push('iosAppId');
     }
 
-    if (missingVariables.length > 0) {
+    if (missingValues.length > 0) {
         throw new Error(
             [
-                'Missing required environment variables:',
-                missingVariables.join(', '),
+                'Missing required BrowserStack values:',
+                missingValues.join(', '),
             ].join(' ')
         );
     }
@@ -333,7 +329,7 @@ export const config: Options.Testrunner = {
      * Runs before WebdriverIO creates the workers.
      */
     onPrepare(): void {
-        validateEnvironmentVariables();
+        validateBrowserStackConfiguration();
         createExecutionDirectories();
 
         console.log(
