@@ -69,6 +69,7 @@ jobs:
           rm -rf allure-results
           rm -rf allure-report
           rm -rf reports/allure-report
+          rm -rf _site
           mkdir -p allure-results
 
       - name: Run Android successful login test
@@ -84,6 +85,33 @@ jobs:
         if: always()
         run: npm run report:generate
 
+      - name: Prepare Allure site
+        if: always()
+        shell: bash
+        run: |
+          echo "Searching for generated Allure report..."
+
+          rm -rf _site
+          mkdir -p _site
+
+          if [[ -f "allure-report/index.html" ]]; then
+            echo "Report found at allure-report"
+            cp -R allure-report/. _site/
+          elif [[ -f "reports/allure-report/index.html" ]]; then
+            echo "Report found at reports/allure-report"
+            cp -R reports/allure-report/. _site/
+          else
+            echo "::error::Allure index.html was not found."
+            echo "Available index.html files:"
+            find . -maxdepth 4 -type f -name "index.html" -print
+            exit 1
+          fi
+
+          echo "Files prepared for GitHub Pages:"
+          find _site -maxdepth 2 -type f | head -30
+
+          test -f "_site/index.html"
+
       - name: Configure GitHub Pages
         if: always()
         uses: actions/configure-pages@v5
@@ -92,7 +120,7 @@ jobs:
         if: always()
         uses: actions/upload-pages-artifact@v4
         with:
-          path: allure-report
+          path: _site
 
       - name: Upload downloadable Allure artifact
         if: always()
@@ -101,7 +129,7 @@ jobs:
           name: android-allure-report-${{ github.run_number }}
           path: |
             allure-results
-            allure-report
+            _site
           if-no-files-found: warn
           retention-days: 14
 
