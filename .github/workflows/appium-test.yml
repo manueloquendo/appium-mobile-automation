@@ -12,9 +12,21 @@ jobs:
   android-smoke-test:
     name: Android BrowserStack Validation
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     env:
-      # Tus secrets...
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      BROWSERSTACK_ANDROID_APP_ID: ${{ secrets.BROWSERSTACK_ANDROID_APP_ID }}
+      BROWSERSTACK_IOS_APP_ID: ${{ secrets.BROWSERSTACK_IOS_APP_ID }}
+
+      TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      INVALID_EMAIL: ${{ secrets.INVALID_EMAIL }}
+      INCORRECT_PASSWORD: ${{ secrets.INCORRECT_PASSWORD }}
+
+      CI: true
+      BUILD_NAME: GitHub Actions Android - Run ${{ github.run_number }}
 
     steps:
       - name: Checkout repository
@@ -30,12 +42,33 @@ jobs:
         run: npm ci
 
       - name: Validate required variables
-        # Tu validación actual...
+        shell: bash
+        run: |
+          required_variables=(
+            BROWSERSTACK_USERNAME
+            BROWSERSTACK_ACCESS_KEY
+            BROWSERSTACK_ANDROID_APP_ID
+            TEST_USER_EMAIL
+            TEST_USER_PASSWORD
+            INVALID_EMAIL
+            INCORRECT_PASSWORD
+          )
+
+          for variable in "${required_variables[@]}"; do
+            if [[ -z "${!variable}" ]]; then
+              echo "::error::$variable is missing or empty"
+              exit 1
+            fi
+          done
+
+          echo "All required variables are available."
 
       - name: Clean previous Allure results
+        shell: bash
         run: |
           rm -rf allure-results
           rm -rf allure-report
+          rm -rf reports/allure-report
           mkdir -p allure-results
 
       - name: Run Android successful login test
@@ -61,12 +94,27 @@ jobs:
         with:
           path: allure-report
 
+      - name: Upload downloadable Allure artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-allure-report-${{ github.run_number }}
+          path: |
+            allure-results
+            allure-report
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Set final workflow result
         if: always()
+        shell: bash
         run: |
           if [[ "${{ steps.android-test.outcome }}" == "failure" ]]; then
+            echo "Android successful login test failed."
             exit 1
           fi
+
+          echo "Android successful login test passed."
 
   deploy-allure-report:
     name: Publish Allure Report
