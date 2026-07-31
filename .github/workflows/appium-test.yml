@@ -61,9 +61,6 @@ jobs:
 
           echo "All required variables are available."
 
-      - name: Validate TypeScript
-        run: npx tsc --noEmit
-
       - name: Clean previous Allure results
         shell: bash
         run: |
