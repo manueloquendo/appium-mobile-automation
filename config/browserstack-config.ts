@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -13,10 +15,13 @@ type BrowserStackConfig = {
     incorrectPassword: string;
 };
 
-function readBrowserStackConfig(): BrowserStackConfig {
+type PartialBrowserStackConfig = Partial<BrowserStackConfig>;
+
+function readLocalJsonConfig(): PartialBrowserStackConfig {
     const currentFilePath = fileURLToPath(import.meta.url);
     const configDirectory = path.dirname(currentFilePath);
     const projectRoot = path.resolve(configDirectory, '..');
+
     const configPath = path.join(
         projectRoot,
         'config',
@@ -24,65 +29,96 @@ function readBrowserStackConfig(): BrowserStackConfig {
     );
 
     if (!fs.existsSync(configPath)) {
+        return {};
+    }
+
+    try {
+        return JSON.parse(
+            fs.readFileSync(configPath, 'utf8')
+        ) as PartialBrowserStackConfig;
+    } catch (error) {
         throw new Error(
-            `Missing BrowserStack config file at ${configPath}. Add your credentials there.`
+            `Unable to read BrowserStack config file at ${configPath}. ${
+                error instanceof Error ? error.message : String(error)
+            }`
         );
     }
+}
 
-    const parsedConfig = JSON.parse(
-        fs.readFileSync(configPath, 'utf8')
-    ) as Partial<BrowserStackConfig>;
+function getConfigValue(
+    environmentVariable: string | undefined,
+    jsonValue: string | undefined
+): string | undefined {
+    return environmentVariable?.trim() || jsonValue?.trim();
+}
 
-    const missingFields: string[] = [];
+function readBrowserStackConfig(): BrowserStackConfig {
+    const localConfig = readLocalJsonConfig();
 
-    if (!parsedConfig.username) {
-        missingFields.push('username');
-    }
+    /*
+     * Priority:
+     * 1. Environment variables from GitHub Actions or .env
+     * 2. Local browserstack.config.json fallback
+     */
+    const config: PartialBrowserStackConfig = {
+        username: getConfigValue(
+            process.env.BROWSERSTACK_USERNAME,
+            localConfig.username
+        ),
 
-    if (!parsedConfig.accessKey) {
-        missingFields.push('accessKey');
-    }
+        accessKey: getConfigValue(
+            process.env.BROWSERSTACK_ACCESS_KEY,
+            localConfig.accessKey
+        ),
 
-    if (!parsedConfig.androidAppId) {
-        missingFields.push('androidAppId');
-    }
+        androidAppId: getConfigValue(
+            process.env.BROWSERSTACK_ANDROID_APP_ID,
+            localConfig.androidAppId
+        ),
 
-    if (!parsedConfig.iosAppId) {
-        missingFields.push('iosAppId');
-    }
+        iosAppId: getConfigValue(
+            process.env.BROWSERSTACK_IOS_APP_ID,
+            localConfig.iosAppId
+        ),
 
-    if (!parsedConfig.testUserEmail) {
-        missingFields.push('testUserEmail');
-    }
+        testUserEmail: getConfigValue(
+            process.env.TEST_USER_EMAIL,
+            localConfig.testUserEmail
+        ),
 
-    if (!parsedConfig.testUserPassword) {
-        missingFields.push('testUserPassword');
-    }
+        testUserPassword: getConfigValue(
+            process.env.TEST_USER_PASSWORD,
+            localConfig.testUserPassword
+        ),
 
-    if (!parsedConfig.invalidEmail) {
-        missingFields.push('invalidEmail');
-    }
+        invalidEmail: getConfigValue(
+            process.env.INVALID_EMAIL,
+            localConfig.invalidEmail
+        ),
 
-    if (!parsedConfig.incorrectPassword) {
-        missingFields.push('incorrectPassword');
-    }
+        incorrectPassword: getConfigValue(
+            process.env.INCORRECT_PASSWORD,
+            localConfig.incorrectPassword
+        ),
+    };
+
+    const missingFields = Object.entries(config)
+        .filter(([, value]) => !value)
+        .map(([field]) => field);
 
     if (missingFields.length > 0) {
         throw new Error(
-            `Missing BrowserStack config values in ${configPath}: ${missingFields.join(', ')}`
+            [
+                'Missing required BrowserStack configuration values:',
+                missingFields.join(', '),
+                '',
+                'Provide them through environment variables, a local .env file,',
+                'or config/browserstack.config.json for local execution.',
+            ].join('\n')
         );
     }
 
-    return {
-        username: parsedConfig.username!,
-        accessKey: parsedConfig.accessKey!,
-        androidAppId: parsedConfig.androidAppId!,
-        iosAppId: parsedConfig.iosAppId!,
-        testUserEmail: parsedConfig.testUserEmail!,
-        testUserPassword: parsedConfig.testUserPassword!,
-        invalidEmail: parsedConfig.invalidEmail!,
-        incorrectPassword: parsedConfig.incorrectPassword!,
-    };
+    return config as BrowserStackConfig;
 }
 
 export const browserStackConfig = readBrowserStackConfig();
