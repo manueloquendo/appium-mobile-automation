@@ -25,3 +25,28 @@ jobs:
 
       - name: Validate TypeScript
         run: npx tsc --noEmit
+
+      - name: Run Android mobile suite
+        id: android-suite
+        continue-on-error: true
+        run: npm run test:android:all
+
+      - name: Run iOS mobile suite
+        id: ios-suite
+        continue-on-error: true
+        run: npm run test:ios:all
+
+      - name: Generate Allure report
+        if: always()
+        run: npm run report:generate
+
+      - name: Upload Allure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: reports/allure-report
+
+      - name: Fail workflow if any suite failed
+        if: steps.android-suite.outcome == 'failure' || steps.ios-suite.outcome == 'failure'
+        run: exit 1
