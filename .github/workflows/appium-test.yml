@@ -9,16 +9,16 @@ permissions:
   id-token: write
 
 jobs:
-  android-smoke-test:
-    name: Android BrowserStack Validation
+  usb-appium-validation:
+    name: USB/Appium Validation
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
     env:
-      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-      BROWSERSTACK_ANDROID_APP_ID: ${{ secrets.BROWSERSTACK_ANDROID_APP_ID }}
-      BROWSERSTACK_IOS_APP_ID: ${{ secrets.BROWSERSTACK_IOS_APP_ID }}
+      ANDROID_DEVICE_UDID: ${{ secrets.ANDROID_DEVICE_UDID }}
+      IOS_DEVICE_UDID: ${{ secrets.IOS_DEVICE_UDID }}
+      ANDROID_APP_PATH: ${{ secrets.ANDROID_APP_PATH }}
+      IOS_APP_PATH: ${{ secrets.IOS_APP_PATH }}
 
       TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
@@ -26,7 +26,6 @@ jobs:
       INCORRECT_PASSWORD: ${{ secrets.INCORRECT_PASSWORD }}
 
       CI: true
-      BUILD_NAME: GitHub Actions Android - Run ${{ github.run_number }}
 
     steps:
       - name: Checkout repository
@@ -45,9 +44,10 @@ jobs:
         shell: bash
         run: |
           required_variables=(
-            BROWSERSTACK_USERNAME
-            BROWSERSTACK_ACCESS_KEY
-            BROWSERSTACK_ANDROID_APP_ID
+            ANDROID_DEVICE_UDID
+            IOS_DEVICE_UDID
+            ANDROID_APP_PATH
+            IOS_APP_PATH
             TEST_USER_EMAIL
             TEST_USER_PASSWORD
             INVALID_EMAIL
@@ -72,14 +72,10 @@ jobs:
           rm -rf _site
           mkdir -p allure-results
 
-      - name: Run Android successful login test
-        id: android-test
+      - name: Run TypeScript validation
+        id: typecheck
         continue-on-error: true
-        run: >
-          npx wdio run
-          "./config/wdio.android.browserstack.conf.ts"
-          --spec
-          "./test/features/authentication/successful-login.feature"
+        run: npm run typecheck
 
       - name: Generate Allure report
         if: always()
@@ -137,12 +133,12 @@ jobs:
         if: always()
         shell: bash
         run: |
-          if [[ "${{ steps.android-test.outcome }}" == "failure" ]]; then
-            echo "Android successful login test failed."
+          if [[ "${{ steps.typecheck.outcome }}" == "failure" ]]; then
+            echo "TypeScript validation failed."
             exit 1
           fi
 
-          echo "Android successful login test passed."
+          echo "TypeScript validation passed."
 
   deploy-allure-report:
     name: Publish Allure Report

@@ -3,6 +3,7 @@ import {
     browser,
     expect,
 } from '@wdio/globals';
+import type { ChainablePromiseElement } from 'webdriverio';
 
 import {
     signUpAndroidLocators,
@@ -23,15 +24,15 @@ class SignUpPage {
             : signUpIOSLocators;
     }
 
-    private get signUpLink() {
+    private get signUpLink(): ChainablePromiseElement {
         return $(this.locators.signUpLink);
     }
 
-    private get signUpTitle() {
+    private get signUpTitle(): ChainablePromiseElement {
         return $(this.locators.signUpTitle);
     }
 
-    private get cancelButton() {
+    private get cancelButton(): ChainablePromiseElement {
         return $(this.locators.cancelButton);
     }
 
@@ -39,59 +40,59 @@ class SignUpPage {
         return $$(this.locators.submitButton);
     }
 
-    private get businessNameRequired() {
+    private get businessNameRequired(): ChainablePromiseElement {
         return $(this.locators.businessNameRequired);
     }
 
-    private get firstAndLastNameRequired() {
+    private get firstAndLastNameRequired(): ChainablePromiseElement {
         return $(this.locators.firstAndLastNameRequired);
     }
 
-    private get emailRequired() {
+    private get emailRequired(): ChainablePromiseElement {
         return $(this.locators.emailRequired);
     }
 
-    private get passwordRequired() {
+    private get passwordRequired(): ChainablePromiseElement {
         return $(this.locators.passwordRequired);
     }
 
-    private get confirmPasswordRequired() {
+    private get confirmPasswordRequired(): ChainablePromiseElement {
         return $(this.locators.confirmPasswordRequired);
     }
 
-    private get phoneRequired() {
+    private get phoneRequired(): ChainablePromiseElement {
         return $(this.locators.phoneRequired);
     }
 
-    private get addressRequired() {
+    private get addressRequired(): ChainablePromiseElement {
         return $(this.locators.addressRequired);
     }
 
-    private get cityRequired() {
+    private get cityRequired(): ChainablePromiseElement {
         return $(this.locators.cityRequired);
     }
 
-    private get stateRequired() {
+    private get stateRequired(): ChainablePromiseElement {
         return $(this.locators.stateRequired);
     }
 
-    private get zipRequired() {
+    private get zipRequired(): ChainablePromiseElement {
         return $(this.locators.zipRequired);
     }
 
-    private get privacyPolicySwitch() {
+    private get privacyPolicySwitch(): ChainablePromiseElement {
         return $(this.locators.privacyPolicySwitch);
     }
 
-    private get termsAndConditionsSwitch() {
+    private get termsAndConditionsSwitch(): ChainablePromiseElement {
         return $(this.locators.termsAndConditionsSwitch);
     }
 
-    private get privacyPolicyRequired() {
+    private get privacyPolicyRequired(): ChainablePromiseElement {
         return $(this.locators.privacyPolicyRequired);
     }
 
-    private get termsAndConditionsRequired() {
+    private get termsAndConditionsRequired(): ChainablePromiseElement {
         return $(this.locators.termsAndConditionsRequired);
     }
 
@@ -133,7 +134,7 @@ class SignUpPage {
 
     private async getAndroidEditableField(
         visibleText: string
-    ): Promise<WebdriverIO.Element> {
+    ): Promise<ChainablePromiseElement> {
         const selector =
             'android=new UiScrollable(' +
             'new UiSelector().scrollable(true))' +
@@ -176,7 +177,7 @@ class SignUpPage {
     }
 
     private async focusAndroidField(
-        field: WebdriverIO.Element,
+        field: ChainablePromiseElement,
         visibleText: string
     ): Promise<void> {
         await field.click();
@@ -187,10 +188,7 @@ class SignUpPage {
                 .getAttribute('focused')
                 .catch(() => 'false');
 
-        if (
-            focused !== 'true' &&
-            focused !== true
-        ) {
+        if (focused !== 'true') {
             console.log(
                 `${visibleText} did not receive focus after click. ` +
                 'Retrying with element-center clickGesture.'
@@ -227,7 +225,7 @@ class SignUpPage {
     }
 
     private async clearAndroidField(
-        field: WebdriverIO.Element
+        field: ChainablePromiseElement
     ): Promise<void> {
         try {
             await field.clearValue();
@@ -241,7 +239,7 @@ class SignUpPage {
     }
 
     private async typeAndroidFieldValue(
-        field: WebdriverIO.Element,
+        field: ChainablePromiseElement,
         visibleText: string,
         value: string
     ): Promise<void> {
@@ -510,17 +508,11 @@ class SignUpPage {
         const termsChecked =
             await termsSwitch.getAttribute('checked');
 
-        if (
-            privacyChecked === 'true' ||
-            privacyChecked === true
-        ) {
+        if (privacyChecked === 'true') {
             await privacySwitch.click();
         }
 
-        if (
-            termsChecked === 'true' ||
-            termsChecked === true
-        ) {
+        if (termsChecked === 'true') {
             await termsSwitch.click();
         }
 
@@ -794,7 +786,7 @@ class SignUpPage {
 
     private async ensureValidationDisplayed(
         validationElement:
-            WebdriverIO.Element,
+            ChainablePromiseElement,
         description: string
     ): Promise<void> {
         /*
@@ -874,7 +866,7 @@ class SignUpPage {
         Promise<void> {
         const validations:
             Array<{
-                element: WebdriverIO.Element;
+                element: ChainablePromiseElement;
                 description: string;
             }> = [
                 {

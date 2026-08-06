@@ -3,6 +3,7 @@ import {
     browser,
     expect,
 } from '@wdio/globals';
+import type { ChainablePromiseElement } from 'webdriverio';
 
 import {
     forgotPasswordLocators as androidForgotPasswordLocators,
@@ -676,7 +677,7 @@ class ForgotPasswordPage {
     /*
      * Do not read the input value immediately after setValue().
      *
-     * BrowserStack may leave getValue() or getAttribute()
+     * Some Appium sessions can leave getValue() or getAttribute()
      * pending until the Cucumber timeout is reached.
      */
 }
@@ -778,9 +779,9 @@ class ForgotPasswordPage {
         );
 
         /*
-         * BrowserStack does not expose this custom popup
-         * consistently in the WebdriverIO accessibility
-         * snapshot. Allow time for the visual popup to open.
+         * Some Appium environments do not expose this custom popup
+         * consistently in the WebdriverIO accessibility snapshot.
+         * Allow time for the visual popup to open.
          */
         await browser.pause(4_000);
 
@@ -793,7 +794,7 @@ class ForgotPasswordPage {
 
     /*
      * A physical coordinate tap is more reliable than
-     * element.click() for this native control on BrowserStack.
+     * element.click() for this native control on USB-connected devices.
      */
     await this.tapElementCenter(
         control
@@ -884,49 +885,6 @@ class ForgotPasswordPage {
         );
     }
 
-
-    /**
-     * Returns the iOS OK button displayed inside the
-     * unregistered-email popup.
-     *
-     * Appium Inspector confirmed:
-     * Type: XCUIElementTypeButton
-     * Name: OK
-     * Label: OK
-     * Visible: true
-     * Accessible: true
-     * Hittable: true
-     */
-    private get iosUnregisteredEmailPopupOkButton() {
-        return $(
-            '-ios class chain:**/XCUIElementTypeButton' +
-            '[`name == "OK" OR label == "OK"`]'
-        );
-    }
-
-    /**
-     * Cancel control displayed on the iOS
-     * Forgot Password screen.
-     *
-     * Appium Inspector:
-     * Type: XCUIElementTypeOther
-     * Name: Cancel
-     * Label: Cancel
-     * Visible: true
-     * Accessible: true
-     * Hittable: true
-     */
-    private get iosCancelButton() {
-        return $(
-            '-ios predicate string:' +
-            'type == "XCUIElementTypeOther" ' +
-            'AND (' +
-            'name == "Cancel" ' +
-            'OR label == "Cancel" ' +
-            'OR value == "Cancel"' +
-            ')'
-        );
-    }
 
     /**
      * Verifies that the successful password-reset
@@ -1179,10 +1137,9 @@ class ForgotPasswordPage {
         }
 
         /*
-         * iOS BrowserStack renders the popup visually but
-         * does not consistently expose the alert, title,
-         * message, or OK button to the active WebdriverIO
-         * accessibility snapshot.
+         * On iOS, the popup can render visually but may not
+         * consistently expose the alert, title, message, or
+         * OK button to the active WebdriverIO accessibility snapshot.
          *
          * The Submit action already waited for the popup.
          * Continue with the visual-popup workaround.
@@ -1221,7 +1178,7 @@ class ForgotPasswordPage {
         /*
          * The iOS popup message is visible to the user,
          * but it is not consistently included in the
-         * BrowserStack WebdriverIO page source.
+         * live Appium WebdriverIO page source.
          */
         console.log(
             'The iOS popup message visual wait completed.'
@@ -1263,7 +1220,7 @@ class ForgotPasswordPage {
 
         /*
          * The iOS OK button is visually displayed but is
-         * missing from the active BrowserStack snapshot.
+         * missing from the active Appium snapshot.
          * Tap its visual center using viewport-relative
          * coordinates so the action scales with the device.
          *
@@ -1510,55 +1467,6 @@ class ForgotPasswordPage {
     }
 
     /**
-     * Returns the input value exposed by
-     * Android or iOS.
-     */
-    private async getInputValue(
-        element: WebdriverIO.Element
-    ): Promise<string> {
-        const attributes =
-            browser.isIOS
-                ? [
-                    'value',
-                    'label',
-                    'name',
-                ]
-                : [
-                    'text',
-                    'content-desc',
-                ];
-
-        for (const attribute of attributes) {
-            try {
-                const value =
-                    await element.getAttribute(
-                        attribute
-                    );
-
-                if (
-                    typeof value === 'string' &&
-                    value.trim().length > 0
-                ) {
-                    return value.trim();
-                }
-            } catch {
-                /*
-                 * Continue with the next attribute.
-                 */
-            }
-        }
-
-        try {
-            const value =
-                await element.getValue();
-
-            return value.trim();
-        } catch {
-            return '';
-        }
-    }
-
-    /**
      * Taps the physical center of an element.
      *
      * Android UiAutomator2 does not support the legacy
@@ -1569,7 +1477,7 @@ class ForgotPasswordPage {
      * which is supported by XCUITest.
      */
     private async tapElementCenter(
-        element: WebdriverIO.Element
+        element: ChainablePromiseElement
     ): Promise<void> {
         await element.waitForDisplayed({
             timeout: 20_000,
@@ -1636,7 +1544,7 @@ class ForgotPasswordPage {
      * Gets native text exposed by the element.
      */
     private async getElementText(
-        element: WebdriverIO.Element
+        element: ChainablePromiseElement
     ): Promise<string> {
         try {
             const text =

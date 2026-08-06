@@ -2,7 +2,7 @@
  * iOS locators for the Forgot Password flow.
  *
  * These selectors were validated using
- * BrowserStack Appium Inspector.
+ * Appium Inspector on a physical iOS device.
  */
 export const forgotPasswordLocators = {
     /**
@@ -24,7 +24,7 @@ export const forgotPasswordLocators = {
      * Food App heading displayed on the
      * Forgot Password screen.
      *
-     * BrowserStack Inspector:
+     * Appium Inspector:
      * Type: XCUIElementTypeStaticText
      * Text: Food App
      */
@@ -40,7 +40,7 @@ export const forgotPasswordLocators = {
     /**
      * Email Address field.
      *
-     * BrowserStack Inspector:
+     * Appium Inspector:
      * Type: XCUIElementTypeTextField
      * Value: Email Address
      */
@@ -55,7 +55,7 @@ export const forgotPasswordLocators = {
     /**
      * Submit control.
      *
-     * BrowserStack Inspector:
+     * Appium Inspector:
      * Type: XCUIElementTypeOther
      * Name: Submit
      * Label: Submit
@@ -72,7 +72,7 @@ export const forgotPasswordLocators = {
     /**
      * Required Email Address validation.
      *
-     * BrowserStack Inspector:
+     * Appium Inspector:
      * Type: XCUIElementTypeStaticText
      * Name: ^An email address is required
      */
@@ -103,7 +103,7 @@ export const forgotPasswordLocators = {
     /**
      * Unable to Send Reset Email popup title.
      *
-     * BrowserStack Inspector:
+     * Appium Inspector:
      * Text: Unable to Send Reset Email
      */
     unregisteredEmailPopupTitle:
@@ -117,7 +117,7 @@ export const forgotPasswordLocators = {
     /**
      * Unregistered email popup message.
      *
-     * BrowserStack Inspector:
+     * Appium Inspector:
      * We could not send a password reset email.
      * Please check your email address and try again.
      */

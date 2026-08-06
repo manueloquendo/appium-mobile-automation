@@ -10,23 +10,23 @@ import {
 } from '@wdio/globals';
 
 import LoginPage from '../pageobjects/login.page.js';
-import { browserStackConfig } from '../../config/browserstack-config.js';
+import { mobileConfig } from '../../config/mobile-config.js';
 
 /**
  * Test data used by the authentication scenarios.
  */
 const authenticationTestData = {
     validEmail:
-        browserStackConfig.testUserEmail,
+        mobileConfig.testUserEmail,
 
     validPassword:
-        browserStackConfig.testUserPassword,
+        mobileConfig.testUserPassword,
 
     invalidEmail:
-        browserStackConfig.invalidEmail,
+        mobileConfig.invalidEmail,
 
     incorrectPassword:
-        browserStackConfig.incorrectPassword,
+        mobileConfig.incorrectPassword,
 } as const;
 
 /**

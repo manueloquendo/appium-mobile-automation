@@ -11,10 +11,9 @@ node_modules/
 !.env.example
 
 # ==================================================
-# BrowserStack Configuration
+# Appium USB Configuration
 # ==================================================
-config/browserstack.config.json
-browserstack.log
+config/*.local.json
 
 # ==================================================
 # Logs

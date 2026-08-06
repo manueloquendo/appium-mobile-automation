@@ -3,6 +3,7 @@ import {
     browser,
     expect,
 } from '@wdio/globals';
+import type { ChainablePromiseElement } from 'webdriverio';
 
 import {
     loginLocators as androidLoginLocators,
@@ -425,7 +426,7 @@ class LoginPage {
      * Safely clears an input field.
      */
     private async clearInputField(
-        element: WebdriverIO.Element
+        element: ChainablePromiseElement
     ): Promise<void> {
         await element.waitForDisplayed({
             timeout: 15_000,
@@ -449,7 +450,7 @@ class LoginPage {
      * or iOS attributes.
      */
     private async getValidationMessageText(
-        element: WebdriverIO.Element
+        element: ChainablePromiseElement
     ): Promise<string> {
         try {
             const text =
